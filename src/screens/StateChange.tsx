@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Pressable, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {connect} from 'react-redux';
 import {changeBackgroundColor} from '../redux/actions';
 
@@ -20,7 +20,7 @@ const StateChange: React.SFC<StateChangeProps> = (props: any) => {
         }}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate('Unmounted')}>
-          <Text>Go To Unmounted Screen</Text>
+          <Text style={{fontSize:props.fontSize}}>Go To Unmounted Screen</Text>
         </TouchableWithoutFeedback>
       </View>
       <TouchableWithoutFeedback onPress={props.changeBackgroundColor}>
@@ -32,9 +32,31 @@ const StateChange: React.SFC<StateChangeProps> = (props: any) => {
             alignItems: 'center',
             backgroundColor: props.backgroundColor,
           }}>
-          <Text>Change Background Color</Text>
+          <Text style={{fontSize:props.fontSize}}>Change Background Color</Text>
         </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+        <Pressable
+        onPress={()=>props.decreaseFontSize(props.fontSize)}
+          style={{
+            width: '100%',
+            height: '50%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: props.backgroundColor,
+          }}>
+          <Text style={{fontSize:props.fontSize}}>Decrease Font Size</Text>
+        </Pressable>
+        <Pressable
+        onPress={()=>props.increaseFontSize(props.fontSize)}
+          style={{
+            width: '100%',
+            height: '50%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: props.backgroundColor,
+          }}>
+          <Text style={{fontSize:props.fontSize}}>Increase Font Size</Text>
+        </Pressable>
     </View>
   );
 };

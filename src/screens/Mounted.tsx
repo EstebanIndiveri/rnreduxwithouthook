@@ -7,15 +7,16 @@ const Mounted = (props:any) => {
     const {navigation}=props;
 
     return ( 
-        <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:props.backgroundColor}}>
+        <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:props.backgroundColorKey.backgroundColor}}>
             <TouchableWithoutFeedback onPress={()=>navigation.navigate('StateChange')}>
-            <Text style={{fontSize:25}}>Go to State Change Screen</Text>
+            <Text style={{fontSize:props.fontSize}}>Go to State Change Screen</Text>
             </TouchableWithoutFeedback>
         </View>
      );
 }
 const mapStateToProps = (state: any) => {
-    const {backgroundColor} = state;
-    return {backgroundColor};
+    const {backgroundColorKey,fontSizeKey} = state;
+    const {fontSize}=fontSizeKey
+    return {backgroundColorKey,fontSize};
   };
 export default connect(mapStateToProps)(Mounted);

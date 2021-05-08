@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   changeBackgroundColor,
   decreaseFontSize,
@@ -80,11 +81,13 @@ const mapStateToProps = (state: any) => {
 // Setting channgin modify backgroundColor
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    changeBackgroundColor: () => dispatch(changeBackgroundColor()),
-    increaseFontSize: (fontsize: number) =>
-      dispatch(increaseFontSize(fontsize)),
-    decreaseFontSize: (fontsize: number) =>
-      dispatch(decreaseFontSize(fontsize)),
+    changeBackgroundColor: bindActionCreators(changeBackgroundColor,dispatch),
+    // increaseFontSize: (fontsize: number) =>
+      // dispatch(increaseFontSize(fontsize)),
+      increaseFontSize:bindActionCreators(increaseFontSize,dispatch),
+    // decreaseFontSize: (fontsize: number) =>
+    //   dispatch(decreaseFontSize(fontsize)),
+    decreaseFontSize: bindActionCreators(decreaseFontSize,dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(StateChange);

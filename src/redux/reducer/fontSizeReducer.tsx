@@ -1,14 +1,17 @@
-import { typesConstants } from "../constants";
+import {typesConstants} from '../constants';
 
-interface fontInterface{
-  fontSize:number;
+interface fontInterface {
+  fontSize: number;
 }
 
-const initalState : fontInterface = {
+const initalState: fontInterface = {
   fontSize: 20,
 };
 
-export const fontSizeReducer = (state:fontInterface = initalState, action: any) : fontInterface=> {
+export const fontSizeReducer = (
+  state: fontInterface = initalState,
+  action: any,
+): fontInterface => {
   switch (action.type) {
     case typesConstants.INCREASE_FONT_SIZE:
       return {
@@ -18,7 +21,7 @@ export const fontSizeReducer = (state:fontInterface = initalState, action: any) 
     case typesConstants.DECREASE_FONT_SIZE:
       return {
         ...state,
-        fontSize:state.fontSize - 1,
+        fontSize: state.fontSize - 1,
       };
     default:
       return state;

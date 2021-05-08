@@ -3,6 +3,6 @@ import {backgroundColorReducer} from './backgroundColorReducer';
 import {fontSizeReducer} from './fontSizeReducer';
 
 export const reducer = combineReducers({
-  backgroundColorKey:backgroundColorReducer,
-  fontSizeKey:fontSizeReducer,
+  backgroundColorKey: backgroundColorReducer,
+  fontSizeKey: fontSizeReducer,
 });

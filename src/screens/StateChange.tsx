@@ -1,18 +1,26 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import {Pressable, Text, TouchableWithoutFeedback, View} from 'react-native';
-import {connect} from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   changeBackgroundColor,
   decreaseFontSize,
   increaseFontSize,
 } from '../redux/actions';
+import {RootState} from '../redux/store';
 
 export interface StateChangeProps {}
 
-const StateChange: React.SFC<StateChangeProps> = (props: any) => {
-  const {navigation} = props;
-
+const StateChange: React.SFC<StateChangeProps> = () => {
+  const navigation=useNavigation();
+  const BackgroundColorState = useSelector(
+    (state: RootState) => state.backgroundColorKey,
+  );
+  // console.log(BackgroundColorState);
+  const {backgroundColor} = BackgroundColorState;
+  const FontSizeState=useSelector((state:RootState)=>state.fontSizeKey);
+  const {fontSize} = FontSizeState;
+    const dispatch=useDispatch();
   return (
     <View>
       <View
@@ -21,52 +29,52 @@ const StateChange: React.SFC<StateChangeProps> = (props: any) => {
           height: '20%',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: props.backgroundColorKey.backgroundColor,
+          backgroundColor,
         }}>
         <TouchableWithoutFeedback
           onPress={() => navigation.navigate('Unmounted')}>
-          <Text style={{fontSize: props.fontSizeKey.fontSize}}>
+          <Text style={{fontSize}}>
             Go To Unmounted Screen
           </Text>
         </TouchableWithoutFeedback>
       </View>
-      <TouchableWithoutFeedback onPress={props.changeBackgroundColor}>
+      <TouchableWithoutFeedback onPress={()=>dispatch(changeBackgroundColor())}>
         <View
           style={{
             width: '100%',
             height: '20%',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: props.backgroundColorKey.backgroundColor,
+            backgroundColor
           }}>
-          <Text style={{fontSize: props.fontSizeKey.fontSize}}>
+          <Text style={{fontSize}}>
             Change Background Color
           </Text>
         </View>
       </TouchableWithoutFeedback>
       <Pressable
-        onPress={() => props.decreaseFontSize(props.fontSize)}
+        onPress={() => dispatch(decreaseFontSize(fontSize))}
         style={{
           width: '100%',
           height: '20%',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: props.backgroundColorKey.backgroundColor,
+          backgroundColor
         }}>
-        <Text style={{fontSize: props.fontSizeKey.fontSize}}>
+        <Text style={{fontSize}}>
           Decrease Font Size
         </Text>
       </Pressable>
       <Pressable
-        onPress={() => props.increaseFontSize(props.fontSizeKey.fontSize)}
+        onPress={() =>dispatch(increaseFontSize(fontSize))}
         style={{
           width: '100%',
           height: '20%',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: props.backgroundColorKey.backgroundColor,
+          backgroundColor
         }}>
-        <Text style={{fontSize: props.fontSizeKey.fontSize}}>
+        <Text style={{fontSize}}>
           Increase Font Size
         </Text>
       </Pressable>
@@ -74,20 +82,24 @@ const StateChange: React.SFC<StateChangeProps> = (props: any) => {
   );
 };
 // state o new
-const mapStateToProps = (state: any) => {
-  const {backgroundColorKey, fontSizeKey} = state;
-  return {backgroundColorKey, fontSizeKey};
-};
+// const mapStateToProps = (state: any) => {
+//   const {backgroundColorKey, fontSizeKey} = state;
+//   return {backgroundColorKey, fontSizeKey};
+// };
 // Setting channgin modify backgroundColor
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    changeBackgroundColor: bindActionCreators(changeBackgroundColor,dispatch),
-    // increaseFontSize: (fontsize: number) =>
-      // dispatch(increaseFontSize(fontsize)),
-      increaseFontSize:bindActionCreators(increaseFontSize,dispatch),
-    // decreaseFontSize: (fontsize: number) =>
-    //   dispatch(decreaseFontSize(fontsize)),
-    decreaseFontSize: bindActionCreators(decreaseFontSize,dispatch),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(StateChange);
+// const mapDispatchToProps = (dispatch: any) => {
+//   return {
+//     changeBackgroundColor: bindActionCreators(changeBackgroundColor, dispatch),
+//     increaseFontSize: bindActionCreators(increaseFontSize, dispatch),
+//     decreaseFontSize: bindActionCreators(decreaseFontSize, dispatch),
+//   };
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(StateChange);
+export default (StateChange);
+
+
+
+// increaseFontSize: (fontsize: number) =>
+// dispatch(increaseFontSize(fontsize)),
+// decreaseFontSize: (fontsize: number) =>
+//   dispatch(decreaseFontSize(fontsize)),

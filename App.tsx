@@ -5,13 +5,17 @@ import Mounted from './src/screens/Mounted';
 import StateChange from './src/screens/StateChange';
 import UnMounted from './src/screens/UnMounted';
 import { Provider } from 'react-redux';
-import { store } from './src/redux/store';
+import reduxStore from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
 const Stack = createStackNavigator();
 
 const App=()=>{
+  const{store,persistor}=reduxStore();
   return(
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <Navigators/>
+      </PersistGate>
     </Provider>
   );
 };

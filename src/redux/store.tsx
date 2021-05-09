@@ -1,5 +1,23 @@
-import { createStore } from "redux";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createStore} from 'redux';
+import {persistStore, persistReducer} from 'redux-persist';
 import {reducer} from './reducer/rootReducer';
-export const store = createStore(reducer);
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whiteList:['fontSize'],
+  blacklist: ['backgroundColorReducer']
+};
+
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+const storeState = createStore(reducer);
+export default () => {
+  let store = createStore(persistedReducer);
+  let persistor = persistStore(store);
+  return {store, persistor};
+};
+
+export type RootState = ReturnType<typeof storeState.getState>;
+export type AppDispatch = typeof storeState.dispatch;

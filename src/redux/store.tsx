@@ -6,8 +6,6 @@ import {reducer} from './reducer/rootReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whiteList:['fontSize'],
-  blacklist: ['backgroundColorReducer']
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);

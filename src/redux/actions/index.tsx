@@ -16,6 +16,9 @@ export const increaseFontSize = (currentFontSize: any) => {
   };
 };
 export const decreaseFontSize = (currentFontSize: number) => {
+  AsyncStorage.getItem('persist:root').then((data)=>{
+    console.log(data);
+  });
   return {
     type: typesConstants.DECREASE_FONT_SIZE,
     currentFontSize,

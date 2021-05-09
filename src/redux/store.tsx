@@ -2,10 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStore} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import {reducer} from './reducer/rootReducer';
+import { encryptTransform } from 'redux-persist-transform-encrypt';
+
+const encryptor=encryptTransform({
+    secretKey:'myDatabaseKey',
+    onError:function(error){
+        console.log(error);
+    }
+});
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  transforms:[encryptor],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
